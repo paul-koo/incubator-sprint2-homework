@@ -29,7 +29,6 @@ function Affair(props: AffairPropsType) {
             <div id={"hw2-priority-" + props.affair._id} hidden>
                 {props.affair.priority}
             </div>
-            {props.affair.priority}
             <button
                 id={"hw2-button-delete-" + props.affair._id}
                 className={buttonClass}
