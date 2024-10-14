@@ -3,25 +3,25 @@ import React, {
     InputHTMLAttributes,
     DetailedHTMLProps,
     HTMLAttributes,
-} from 'react'
-import s from './SuperRadio.module.css'
+} from 'react';
+import s from './SuperRadio.module.css';
 
 type DefaultRadioPropsType = DetailedHTMLProps<
     InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
->
+>;
 // тип пропсов обычного спана
 type DefaultSpanPropsType = DetailedHTMLProps<
     HTMLAttributes<HTMLSpanElement>,
     HTMLSpanElement
->
+>;
 
 type SuperRadioPropsType = Omit<DefaultRadioPropsType, 'type'> & {
-    options?: any[]
-    onChangeOption?: (option: any) => void
+    options?: any[];
+    onChangeOption?: (option: any) => void;
 
-    spanProps?: DefaultSpanPropsType // пропсы для спана
-}
+    spanProps?: DefaultSpanPropsType; // пропсы для спана
+};
 
 const SuperRadio: React.FC<SuperRadioPropsType> = ({
     id,
@@ -36,10 +36,12 @@ const SuperRadio: React.FC<SuperRadioPropsType> = ({
 }) => {
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
         // делают студенты
-    }
+        onChangeOption?.(e.currentTarget.value);
+    };
 
-    const finalRadioClassName = s.radio + (className ? ' ' + className : '')
-    const spanClassName = s.span + (spanProps?.className ? ' ' + spanProps.className : '')
+    const finalRadioClassName = s.radio + (className ? ' ' + className : '');
+    const spanClassName =
+        s.span + (spanProps?.className ? ' ' + spanProps.className : '');
 
     const mappedOptions: any[] = options
         ? options.map((o) => (
@@ -49,7 +51,9 @@ const SuperRadio: React.FC<SuperRadioPropsType> = ({
                       className={finalRadioClassName}
                       type={'radio'}
                       // name, checked, value делают студенты
-
+                      checked={Number(value) === o.id ? true : false}
+                      value={o.id}
+                      name={name}
                       onChange={onChangeCallback}
                       {...restProps}
                   />
@@ -62,9 +66,9 @@ const SuperRadio: React.FC<SuperRadioPropsType> = ({
                   </span>
               </label>
           ))
-        : []
+        : [];
 
-    return <div className={s.options}>{mappedOptions}</div>
-}
+    return <div className={s.options}>{mappedOptions}</div>;
+};
 
-export default SuperRadio
+export default SuperRadio;
