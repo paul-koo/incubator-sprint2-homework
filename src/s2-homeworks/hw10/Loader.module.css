@@ -1,3 +1,17 @@
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .loader {
     /*свг и/или анимация*/
+    background-image: url('./Loading.png');
+    background-size: cover;
+    width: 90px;
+    height: 90px;
+    animation: rotate 1s linear infinite;
 }
