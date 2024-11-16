@@ -1,16 +1,16 @@
 [data-theme='1'] {
     --color: #000000;
-    --background: #FFFFFF;
+    --background: #ffffff;
 }
 
 [data-theme='2'] {
     --color: #000000;
-    --background: #DDEEFF;
+    --background: #ddeeff;
 }
 
 [data-theme='3'] {
-    --color: #FFFFFF;
-    --background: #212A34;
+    --color: #ffffff;
+    --background: #212a34;
 }
 
 html {
@@ -19,5 +19,17 @@ html {
 }
 
 .select {
+    width: 170px;
+    height: 36px;
+    font-size: 14px;
+    background-color: var(--background);
+    color: var(--color);
+    margin-top: 6px;
+    border-radius: 2px;
+    border: 1px solid #323232;
+}
 
+.select-title {
+    font-size: 14px;
+    margin-top: 33px;
 }
