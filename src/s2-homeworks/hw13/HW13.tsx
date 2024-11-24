@@ -1,49 +1,64 @@
-import React, {useState} from 'react'
-import s2 from '../../s1-main/App.module.css'
-import s from './HW13.module.css'
-import SuperButton from '../hw04/common/c2-SuperButton/SuperButton'
-import axios from 'axios'
-import success200 from './images/200.svg'
-import error400 from './images/400.svg'
-import error500 from './images/500.svg'
-import errorUnknown from './images/error.svg'
+import React, { useState } from 'react';
+import s2 from '../../s1-main/App.module.css';
+import s from './HW13.module.css';
+import SuperButton from '../hw04/common/c2-SuperButton/SuperButton';
+import axios from 'axios';
+import success200 from './images/200.svg';
+import error400 from './images/400.svg';
+import error500 from './images/500.svg';
+import errorUnknown from './images/error.svg';
 
 /*
-* 1 - дописать функцию send
-* 2 - дизэйблить кнопки пока идёт запрос
-* 3 - сделать стили в соответствии с дизайном
-* */
+ * 1 - дописать функцию send
+ * 2 - дизэйблить кнопки пока идёт запрос
+ * 3 - сделать стили в соответствии с дизайном
+ * */
 
 const HW13 = () => {
-    const [code, setCode] = useState('')
-    const [text, setText] = useState('')
-    const [info, setInfo] = useState('')
-    const [image, setImage] = useState('')
+    const [code, setCode] = useState('');
+    const [text, setText] = useState('');
+    const [info, setInfo] = useState('');
+    const [image, setImage] = useState('');
 
     const send = (x?: boolean | null) => () => {
         const url =
             x === null
                 ? 'https://xxxxxx.ccc' // имитация запроса на не корректный адрес
-                : 'https://samurai.it-incubator.io/api/3.0/homework/test'
+                : 'https://samurai.it-incubator.io/api/3.0/homework/test';
 
-        setCode('')
-        setImage('')
-        setText('')
-        setInfo('...loading')
+        setCode('');
+        setImage('');
+        setText('');
+        setInfo('...loading');
 
         axios
-            .post(url, {success: x})
+            .post(url, { success: x })
             .then((res) => {
-                setCode('Код 200!')
-                setImage(success200)
+                setCode('Код 200!');
+                setImage(success200);
+                // setText(res.data.errorText);
+                setInfo(res.data.info);
+                setText(res.data.errorText);
                 // дописать
-
             })
             .catch((e) => {
-                // дописать
+                console.log(e);
 
-            })
-    }
+                if (e.code === 'ERR_NETWORK') {
+                    setCode('ERR_NETWORK');
+                    setImage(errorUnknown);
+                    setText('error');
+                    setInfo('Error');
+                    //поле текста это
+                } else {
+                    setCode(`Код ${e.response.status}!`);
+                    setImage(e.code === 'ERR_BAD_RESPONSE' ? error500 : error400);
+                    setText(e.response.data.errorText);
+                    setInfo(e.response.data.info);
+                }
+                // дописать
+            });
+    };
 
     return (
         <div id={'hw13'}>
@@ -55,8 +70,8 @@ const HW13 = () => {
                         id={'hw13-send-true'}
                         onClick={send(true)}
                         xType={'secondary'}
+                        disabled={info === '...loading'}
                         // дописать
-
                     >
                         Send true
                     </SuperButton>
@@ -64,8 +79,8 @@ const HW13 = () => {
                         id={'hw13-send-false'}
                         onClick={send(false)}
                         xType={'secondary'}
+                        disabled={info === '...loading'}
                         // дописать
-
                     >
                         Send false
                     </SuperButton>
@@ -73,8 +88,8 @@ const HW13 = () => {
                         id={'hw13-send-undefined'}
                         onClick={send(undefined)}
                         xType={'secondary'}
+                        disabled={info === '...loading'}
                         // дописать
-
                     >
                         Send undefined
                     </SuperButton>
@@ -82,8 +97,8 @@ const HW13 = () => {
                         id={'hw13-send-null'}
                         onClick={send(null)} // имитация запроса на не корректный адрес
                         xType={'secondary'}
+                        disabled={info === '...loading'}
                         // дописать
-
                     >
                         Send null
                     </SuperButton>
@@ -91,7 +106,7 @@ const HW13 = () => {
 
                 <div className={s.responseContainer}>
                     <div className={s.imageContainer}>
-                        {image && <img src={image} className={s.image} alt="status"/>}
+                        {image && <img src={image} className={s.image} alt="status" />}
                     </div>
 
                     <div className={s.textContainer}>
@@ -108,7 +123,7 @@ const HW13 = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default HW13
+export default HW13;
