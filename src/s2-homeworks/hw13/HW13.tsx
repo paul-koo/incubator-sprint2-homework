@@ -45,9 +45,9 @@ const HW13 = () => {
                 console.log(e);
 
                 if (e.code === 'ERR_NETWORK') {
-                    setCode('ERR_NETWORK');
+                    setCode('Error!');
                     setImage(errorUnknown);
-                    setText('error');
+                    setText(e.message);
                     setInfo('Error');
                     //поле текста это
                 } else {

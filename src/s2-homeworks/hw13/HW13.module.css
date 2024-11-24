@@ -1,22 +1,36 @@
 .buttonsContainer {
+    display: flex;
+    gap: 24px;
 }
 
 .responseContainer {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin-top: 30px;
 }
 
 .imageContainer {
+    min-height: 316px;
+    align-content: center;
 }
 
 .image {
 }
 
-.textContainer{
+.textContainer {
+    align-self: center;
+    font-weight: 500;
 }
 
 .code {
+    font-size: 30px;
 }
 
 .text {
+    margin-top: 12px;
 }
 .info {
+    max-width: 510px;
+    font-family: Montserrat;
 }
