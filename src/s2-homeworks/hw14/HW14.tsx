@@ -12,7 +12,7 @@ import { useSearchParams } from 'react-router-dom';
  * 4 - сделать стили в соответствии с дизайном
  * 5 - добавить HW14 в HW5/pages/JuniorPlus
  * */
-//{ techs: string[] }
+// { techs: string[] }
 const getTechs = (find: string) => {
     return axios
         .get<{ techs: string[] }>('https://samurai.it-incubator.io/api/3.0/homework/test2', {
@@ -33,8 +33,7 @@ const HW14 = () => {
         setLoading(true);
         getTechs(value).then((res) => {
             if (res) {
-                const filter = res.data.techs.filter((el) => el.includes(find));
-                console.log(filter);
+                const filter = res.data.techs.filter((el) => el.includes(value));
                 setTechs(filter);
             }
 
@@ -47,7 +46,7 @@ const HW14 = () => {
     };
 
     const onChangeText = (value: string) => {
-        setFind(value);
+        setFind(() => value);
         setSearchParams(value);
         // делает студент
 
